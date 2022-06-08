@@ -18,4 +18,14 @@ describe('Destination', () => {
     expect(destination1).to.be.an.instanceOf(Destination);
     expect(destination2).to.be.an.instanceOf(Destination);
   });
+
+  it('should have an id', () => {
+    expect(destination1.id).to.equal(1);
+    expect(destination2.id).to.equal(2);
+  });
+
+  it('should have a destination', () => {
+    expect(destination1.destination).to.equal('Lima, Peru');
+    expect(destination2.destination).to.equal('Stockholm, Sweden');
+  });
 });

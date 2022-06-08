@@ -1,6 +1,7 @@
 class Destination {
-  constructor() {
-
+  constructor(destinationData) {
+    this.id = destinationData.id;
+    this.destination = destinationData.destination;
   };
 };
 
