@@ -46,7 +46,7 @@ export const travelers = [
   },
   {
     "id": 10,
-    "name": "Rickie Jodlowski",
+    "name": undefined,
     "travelerType": "relaxer"
   },
 ];
