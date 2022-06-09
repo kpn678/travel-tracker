@@ -13,7 +13,7 @@ class Trip {
   //link trip to userID
   //link trip to destinationID
   //calculate cost using travelers and duration with estimates in Destination
-  //list dates of trip using date and duration
+  //list dates of trip using date and duration, maybe also get today's date
 };
 
 export default Trip;
