@@ -7,10 +7,10 @@ describe('Trip', () => {
   let trip1, trip2, trip4, trip5;
 
   beforeEach(() => {
-    trip1 = new Trip(trips[0]);
-    trip2 = new Trip(trips[1]);
-    trip4 = new Trip(trips[3]);
-    trip5 = new Trip(trips[4]);
+    trip1 = new Trip(trips[0], destinations);
+    trip2 = new Trip(trips[1], destinations);
+    trip4 = new Trip(trips[3], destinations);
+    trip5 = new Trip(trips[4], destinations);
   });
 
   it('should be a function', () => {
@@ -62,10 +62,6 @@ describe('Trip', () => {
     expect(trip1.suggestedActivities).to.deep.equal([]);
   });
 
-  it('should begin with a blank total cost', () => {
-    expect(trip1.totalCost).to.equal('');
-  });
-
   it('should be able to return a destination', () => {
     expect(trip1.getDestination(destinations)).to.deep.equal(
       {
@@ -90,8 +86,8 @@ describe('Trip', () => {
   })
 
   it('should be able to calculate a total cost', () => {
-    expect(trip1.getTotalCost(destinations)).to.equal(2000);
-    expect(trip2.getTotalCost(destinations)).to.equal(7090);
+    expect(trip1.getCost(destinations)).to.equal(2200);
+    expect(trip2.getCost(destinations)).to.equal(7799);
   });
 
 });
