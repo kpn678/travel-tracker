@@ -4,12 +4,11 @@ import { destinations } from '../src/data/destinations-data';
 import { trips } from '../src/data/trips-data';
 
 describe('Trip', () => {
-  let trip1, trip2, trip3, trip4, trip5;
+  let trip1, trip2, trip4, trip5;
 
   beforeEach(() => {
     trip1 = new Trip(trips[0]);
     trip2 = new Trip(trips[1]);
-    trip3 = new Trip(trips[2]);
     trip4 = new Trip(trips[3]);
     trip5 = new Trip(trips[4]);
   });
@@ -63,6 +62,10 @@ describe('Trip', () => {
     expect(trip1.suggestedActivities).to.deep.equal([]);
   });
 
+  it('should begin with a blank total cost', () => {
+    expect(trip1.totalCost).to.equal('');
+  });
+
   it('should be able to return a destination', () => {
     expect(trip1.getDestination(destinations)).to.deep.equal(
       {
@@ -84,6 +87,11 @@ describe('Trip', () => {
         "alt": "opera house and city buildings on the water with boats"
       }
     );
+  })
+
+  it('should be able to calculate a total cost', () => {
+    expect(trip1.getTotalCost(destinations)).to.equal(2000);
+    expect(trip2.getTotalCost(destinations)).to.equal(7090);
   });
 
 });
