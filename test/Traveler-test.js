@@ -46,7 +46,7 @@ describe('Traveler', () => {
   });
 
   it("should be able to return a list of all the traveler's trips", () => {
-    expect(traveler1.getAllTrips(trips)).to.deep.equal(
+    expect(traveler1.listAllTrips(trips)).to.deep.equal(
       [
         {
           "id": 2,
@@ -100,7 +100,7 @@ describe('Traveler', () => {
         }
       ]
     );
-    expect(traveler2.getAllTrips(trips)).to.deep.equal(
+    expect(traveler2.listAllTrips(trips)).to.deep.equal(
       [
         {
           "id": 1,
@@ -141,8 +141,31 @@ describe('Traveler', () => {
           "duration": 19,
           "status": "approved",
           "suggestedActivities": []
-        }      
+        }
       ]
     );
+  });
+
+  it("should return a list of a traveler's pending trips", () => {
+    traveler2.listAllTrips(trips);
+    expect(traveler2.listPendingTrips()).to.deep.equal(
+      [
+        {
+          "id": 4,
+          "userID": 2,
+          "destinationID": 6,
+          "travelers": 2,
+          "date": "2022/02/25",
+          "duration": 10,
+          "status": "pending",
+          "suggestedActivities": []
+        }
+      ]
+    );
+  });
+
+  it("should return an empty array if a traveler has no pending trips", () => {
+    traveler1.listAllTrips(trips);
+    expect(traveler1.listPendingTrips()).to.deep.equal([]);
   });
 });

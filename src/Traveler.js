@@ -4,6 +4,7 @@ class Traveler {
     this.name = travelerObj.name;
     this.travelerType = travelerObj.travelerType;
     this.allTrips = [];
+    this.pendingTrips = [];
   };
 
   returnTravelerFirstName() {
@@ -23,7 +24,7 @@ class Traveler {
     return `${yyyy}/${mm}/${dd}`;
   };
 
-  getAllTrips(tripsData) {
+  listAllTrips(tripsData) {
     tripsData.forEach(trip => {
       if (this.id === trip.userID) {
         this.allTrips.push(trip);
@@ -31,7 +32,12 @@ class Traveler {
     });
     return this.allTrips;
   };
-  
+
+  listPendingTrips() {
+    let tripsPending = this.allTrips.filter(trip => trip.status === 'pending')
+    this.pendingTrips = tripsPending;
+    return this.pendingTrips;
+  };
 };
 
 export default Traveler;
