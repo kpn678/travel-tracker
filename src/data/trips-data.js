@@ -31,22 +31,22 @@ export const trips = [
   },
   {
     "id": 4,
-    "userID": 43,
-    "destinationID": 14,
+    "userID": 3,
+    "destinationID": 6,
     "travelers": 2,
     "date": "2022/02/25",
     "duration": 10,
-    "status": "approved",
+    "status": "pending",
     "suggestedActivities": []
   },
   {
     "id": 5,
-    "userID": 42,
-    "destinationID": 29,
+    "userID": 3,
+    "destinationID": 2,
     "travelers": 3,
     "date": "2022/04/30",
     "duration": 18,
-    "status": "approved",
+    "status": "denied",
     "suggestedActivities": []
   },
   {
