@@ -1,8 +1,8 @@
 class Traveler {
-  constructor(travelerData) {
-    this.id = travelerData.id;
-    this.name = travelerData.name;
-    this.travelerType = travelerData.travelerType;
+  constructor(travelerObj) {
+    this.id = travelerObj.id;
+    this.name = travelerObj.name;
+    this.travelerType = travelerObj.travelerType;
   };
 
   returnTravelerFirstName() {
@@ -13,6 +13,16 @@ class Traveler {
       return splitName[0];
     };
   };
+
+  getTodaysDate() {
+    let today = new Date();
+    let yyyy = today.getFullYear();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    return `${yyyy}/${mm}/${dd}`;
+  };
+
+
 };
 
 export default Traveler;

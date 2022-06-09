@@ -1,24 +1,27 @@
 class Trip {
-  constructor(tripData) {
-    this.id = tripData.id;
-    this.userID = tripData.userID;
-    this.destinationID = tripData.destinationID;
-    this.travelers = tripData.travelers
-    this.date = tripData.date;
-    this.duration = tripData.duration;
-    this.status = tripData.status;
-    this.suggestedActivities = tripData.suggestedActivities;
+  constructor(tripObj) {
+    this.id = tripObj.id;
+    this.userID = tripObj.userID;
+    this.destinationID = tripObj.destinationID;
+    this.travelers = tripObj.travelers
+    this.date = tripObj.date;
+    this.duration = tripObj.duration;
+    this.status = tripObj.status;
+    this.suggestedActivities = tripObj.suggestedActivities;
     this.totalCost = '';
   };
+
   getDestination(destinationData) {
     const tripDestination = destinationData.find(datum => datum.id === this.destinationID);
     return tripDestination;
   };
-  getTotalCost(destinationData) {
+
+  getCost(destinationData) {
     const destination = this.getDestination(destinationData);
-    const cost = (this.travelers * destination.estimatedFlightCostPerPerson) + (this.duration * destination.estimatedLodgingCostPerDay);
-    this.totalCost = cost;
-    return cost;
+    const costBeforeFee = (this.travelers * destination.estimatedFlightCostPerPerson) + (this.duration * destination.estimatedLodgingCostPerDay);
+    const costAfterFee = costBeforeFee + (costBeforeFee * 0.1);
+    this.totalCost = costAfterFee
+    return costAfterFee;
   };
 };
 
