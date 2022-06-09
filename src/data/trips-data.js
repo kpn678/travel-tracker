@@ -31,7 +31,7 @@ export const trips = [
   },
   {
     "id": 4,
-    "userID": 3,
+    "userID": 2,
     "destinationID": 6,
     "travelers": 2,
     "date": "2022/02/25",
@@ -41,7 +41,7 @@ export const trips = [
   },
   {
     "id": 5,
-    "userID": 3,
+    "userID": 1,
     "destinationID": 2,
     "travelers": 3,
     "date": "2022/04/30",
@@ -51,7 +51,7 @@ export const trips = [
   },
   {
     "id": 6,
-    "userID": 29,
+    "userID": 2,
     "destinationID": 35,
     "travelers": 3,
     "date": "2022/06/29",
@@ -61,7 +61,7 @@ export const trips = [
   },
   {
     "id": 7,
-    "userID": 37,
+    "userID": 10,
     "destinationID": 17,
     "travelers": 5,
     "date": "2022/5/28",
@@ -71,7 +71,7 @@ export const trips = [
   },
   {
     "id": 8,
-    "userID": 36,
+    "userID": 1,
     "destinationID": 39,
     "travelers": 6,
     "date": "2022/02/07",
@@ -81,7 +81,7 @@ export const trips = [
   },
   {
     "id": 9,
-    "userID": 24,
+    "userID": 2,
     "destinationID": 19,
     "travelers": 5,
     "date": "2022/12/19",
@@ -91,7 +91,7 @@ export const trips = [
   },
   {
     "id": 10,
-    "userID": 9,
+    "userID": 1,
     "destinationID": 50,
     "travelers": 6,
     "date": "2022/07/23",

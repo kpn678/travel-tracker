@@ -3,6 +3,7 @@ class Traveler {
     this.id = travelerObj.id;
     this.name = travelerObj.name;
     this.travelerType = travelerObj.travelerType;
+    this.allTrips = [];
   };
 
   returnTravelerFirstName() {
@@ -22,7 +23,15 @@ class Traveler {
     return `${yyyy}/${mm}/${dd}`;
   };
 
-
+  getAllTrips(tripsData) {
+    tripsData.forEach(trip => {
+      if (this.id === trip.userID) {
+        this.allTrips.push(trip);
+      };
+    });
+    return this.allTrips;
+  };
+  
 };
 
 export default Traveler;
