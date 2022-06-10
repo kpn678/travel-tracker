@@ -41,13 +41,29 @@ button {
   color: #FFF
 }
 
-main {
+main, .home-page, .past-page, .present-page, .future-page, .pending-page {
   align-items: center;
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+main {
   height: 84%;
   overflow: auto;
-  width: 100%;
+}
+
+.past-grid, .present-grid, .future-grid, .pending-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 20px;
+  width: 80%;
+}
+
+.card {
+  background-color: #FFE5D9;
+  height: 400px;
+  width: 275px;
 }
 
 .hidden {
