@@ -171,6 +171,36 @@ describe('Traveler', () => {
     expect(traveler1.listPendingTrips()).to.deep.equal([]);
   });
 
+  it("should return a traveler's past trips", () => {
+    traveler1.listAllTrips(trips);
+    expect(traveler1.listPastTrips()).to.deep.equal(
+      [
+        {
+          "id": 3,
+          "userID": 1,
+          "destinationID": 10,
+          "travelers": 4,
+          "date": "2022/05/22",
+          "duration": 17,
+          "status": "approved",
+          "suggestedActivities": []
+        },
+        {
+          "id": 8,
+          "userID": 1,
+          "destinationID": 9,
+          "travelers": 6,
+          "date": "2022/02/07",
+          "duration": 4,
+          "status": "approved",
+          "suggestedActivities": []
+        }
+      ]
+    );
+    traveler2.listAllTrips(trips);
+    expect(traveler2.listPastTrips()).to.deep.equal([]);
+  });
+
   it("should calculate the total amount a traveler has spent on trips in a year", () => {
     traveler1.listAllTrips(trips);
     expect(traveler1.calculateYearlyCost(destinations)).to.equal('$22,121.00');
@@ -181,5 +211,5 @@ describe('Traveler', () => {
   it("should calculate 0 if a traveler has no approved trips in a year", () => {
     traveler10.listAllTrips(trips);
     expect(traveler10.calculateYearlyCost(destinations)).to.equal('$0.00');
-  })
+  });
 });

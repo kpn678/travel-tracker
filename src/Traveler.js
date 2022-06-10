@@ -7,6 +7,7 @@ class Traveler {
     this.travelerType = travelerObj.travelerType;
     this.allTrips = [];
     this.pendingTrips = [];
+    this.pastTrips = [];
   };
 
   returnTravelerFirstName() {
@@ -40,6 +41,16 @@ class Traveler {
     this.pendingTrips = tripsPending;
     return this.pendingTrips;
   };
+
+  listPastTrips() {
+    const todaysDate = this.getTodaysDate();
+    this.allTrips.forEach(trip => {
+      if (trip.status === 'approved' && todaysDate > trip.date) {
+        this.pastTrips.push(trip);
+      };
+    });
+    return this.pastTrips;
+  }
 
   calculateYearlyCost(destinationData) {
     let today = new Date();
