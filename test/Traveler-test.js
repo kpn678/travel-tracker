@@ -95,7 +95,7 @@ describe('Traveler', () => {
           "userID": 1,
           "destinationID": 1,
           "travelers": 6,
-          "date": "2022/07/23",
+          "date": "2022/06/09",
           "duration": 17,
           "status": "approved",
           "suggestedActivities": []
@@ -199,6 +199,24 @@ describe('Traveler', () => {
     );
     traveler2.listAllTrips(trips);
     expect(traveler2.listPastTrips()).to.deep.equal([]);
+  });
+
+  it("should return a traveler's current trips", () => {
+    traveler1.listAllTrips(trips);
+    expect(traveler1.listCurrentTrips()).to.deep.equal(
+      [
+        {
+          "id": 10,
+          "userID": 1,
+          "destinationID": 1,
+          "travelers": 6,
+          "date": "2022/06/09",
+          "duration": 17,
+          "status": "approved",
+          "suggestedActivities": []
+        }
+      ]
+    );
   });
 
   it("should calculate the total amount a traveler has spent on trips in a year", () => {
