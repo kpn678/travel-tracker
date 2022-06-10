@@ -217,7 +217,62 @@ describe('Traveler', () => {
         }
       ]
     );
+    traveler2.listAllTrips(trips);
+    expect(traveler2.listCurrentTrips()).to.deep.equal([]);
   });
+
+  it("should return a traveler's future trips", () => {
+    traveler1.listAllTrips(trips);
+    expect(traveler1.listFutureTrips()).to.deep.equal(
+      [
+        {
+          "id": 2,
+          "userID": 1,
+          "destinationID": 3,
+          "travelers": 5,
+          "date": "2022/10/04",
+          "duration": 18,
+          "status": "approved",
+          "suggestedActivities": []
+        },
+      ]
+    );
+    traveler2.listAllTrips(trips);
+    expect(traveler2.listFutureTrips()).to.deep.equal(
+      [
+        {
+          "id": 1,
+          "userID": 2,
+          "destinationID": 8,
+          "travelers": 1,
+          "date": "2022/09/16",
+          "duration": 8,
+          "status": "approved",
+          "suggestedActivities": []
+        },
+        {
+          "id": 6,
+          "userID": 2,
+          "destinationID": 8,
+          "travelers": 3,
+          "date": "2022/06/29",
+          "duration": 9,
+          "status": "approved",
+          "suggestedActivities": []
+        },
+        {
+          "id": 9,
+          "userID": 2,
+          "destinationID": 5,
+          "travelers": 5,
+          "date": "2022/12/19",
+          "duration": 19,
+          "status": "approved",
+          "suggestedActivities": []
+        }
+      ]
+    );
+  })
 
   it("should calculate the total amount a traveler has spent on trips in a year", () => {
     traveler1.listAllTrips(trips);

@@ -9,6 +9,7 @@ class Traveler {
     this.pendingTrips = [];
     this.pastTrips = [];
     this.currentTrips = [];
+    this.futureTrips = [];
   };
 
   returnTravelerFirstName() {
@@ -63,6 +64,16 @@ class Traveler {
     return this.currentTrips;
   };
 
+  listFutureTrips() {
+    const todaysDate = this.getTodaysDate();
+    this.allTrips.forEach(trip => {
+      if (trip.status === 'approved' && todaysDate < trip.date) {
+        this.futureTrips.push(trip);
+      };
+    });
+    return this.futureTrips;
+  };
+
   calculateYearlyCost(destinationData) {
     let today = new Date();
     let yyyy = today.getFullYear();
@@ -73,7 +84,7 @@ class Traveler {
       return sum;
     }, 0);
     return yearlyCost.toLocaleString('en-IN',
-      {style: 'currency',currency: 'USD', minimumFractionDigits: 2}
+      {style: 'currency', currency: 'USD', minimumFractionDigits: 2}
     );
   };
 };
