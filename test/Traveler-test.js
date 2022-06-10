@@ -1,5 +1,7 @@
 import { expect } from 'chai';
 import Traveler from '../src/Traveler';
+import Trip from '../src/Trip';
+import { destinations } from '../src/data/destinations-data';
 import { travelers } from '../src/data/travelers-data';
 import { trips } from '../src/data/trips-data';
 
@@ -81,7 +83,7 @@ describe('Traveler', () => {
         {
           "id": 8,
           "userID": 1,
-          "destinationID": 39,
+          "destinationID": 9,
           "travelers": 6,
           "date": "2022/02/07",
           "duration": 4,
@@ -91,7 +93,7 @@ describe('Traveler', () => {
         {
           "id": 10,
           "userID": 1,
-          "destinationID": 50,
+          "destinationID": 1,
           "travelers": 6,
           "date": "2022/07/23",
           "duration": 17,
@@ -125,7 +127,7 @@ describe('Traveler', () => {
         {
           "id": 6,
           "userID": 2,
-          "destinationID": 35,
+          "destinationID": 8,
           "travelers": 3,
           "date": "2022/06/29",
           "duration": 9,
@@ -135,7 +137,7 @@ describe('Traveler', () => {
         {
           "id": 9,
           "userID": 2,
-          "destinationID": 19,
+          "destinationID": 5,
           "travelers": 5,
           "date": "2022/12/19",
           "duration": 19,
@@ -168,4 +170,16 @@ describe('Traveler', () => {
     traveler1.listAllTrips(trips);
     expect(traveler1.listPendingTrips()).to.deep.equal([]);
   });
+
+  it("should calculate the total amount a traveler has spent on trips in a year", () => {
+    traveler1.listAllTrips(trips);
+    expect(traveler1.calculateYearlyCost(destinations)).to.equal('$22,121.00');
+    traveler2.listAllTrips(trips);
+    expect(traveler2.calculateYearlyCost(destinations)).to.equal('$13,447.50');
+  });
+
+  it("should calculate 0 if a traveler has no approved trips in a year", () => {
+    traveler10.listAllTrips(trips);
+    expect(traveler10.calculateYearlyCost(destinations)).to.equal('$0.00');
+  })
 });

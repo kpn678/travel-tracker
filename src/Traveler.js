@@ -1,3 +1,5 @@
+import Trip from './trip';
+
 class Traveler {
   constructor(travelerObj) {
     this.id = travelerObj.id;
@@ -27,7 +29,7 @@ class Traveler {
   listAllTrips(tripsData) {
     tripsData.forEach(trip => {
       if (this.id === trip.userID) {
-        this.allTrips.push(trip);
+        this.allTrips.push(new Trip(trip));
       };
     });
     return this.allTrips;
@@ -37,6 +39,20 @@ class Traveler {
     let tripsPending = this.allTrips.filter(trip => trip.status === 'pending')
     this.pendingTrips = tripsPending;
     return this.pendingTrips;
+  };
+
+  calculateYearlyCost(destinationData) {
+    let today = new Date();
+    let yyyy = today.getFullYear();
+    const yearlyCost = this.allTrips.reduce((sum, trip) => {
+      if (trip.status === 'approved' && trip.date.includes(yyyy)) {
+        sum += trip.getCost(destinationData);
+      };
+      return sum;
+    }, 0);
+    return yearlyCost.toLocaleString('en-IN',
+      {style: 'currency',currency: 'USD', minimumFractionDigits: 2}
+    );
   };
 };
 
