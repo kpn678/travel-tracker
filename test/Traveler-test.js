@@ -171,7 +171,7 @@ describe('Traveler', () => {
     expect(traveler1.listPendingTrips()).to.deep.equal([]);
   });
 
-  it("should return a traveler's past trips", () => {
+  it.skip("should return a traveler's past trips", () => {
     traveler1.listAllTrips(trips);
     expect(traveler1.listPastTrips()).to.deep.equal(
       [
@@ -201,7 +201,7 @@ describe('Traveler', () => {
     expect(traveler2.listPastTrips()).to.deep.equal([]);
   });
 
-  it("should return a traveler's current trips", () => {
+  it.skip("should return a traveler's current trips", () => {
     traveler1.listAllTrips(trips);
     expect(traveler1.listCurrentTrips()).to.deep.equal(
       [
