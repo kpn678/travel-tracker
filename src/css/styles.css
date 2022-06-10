@@ -40,3 +40,16 @@ button {
 .home-button:hover, .past-trips-button:hover, .present-trips-button:hover, .future-trips-button:hover, .pending-trips-button:hover {
   color: #FFF
 }
+
+main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 84%;
+  overflow: auto;
+  width: 100%;
+}
+
+.hidden {
+  display: none!important;
+}
