@@ -62,6 +62,29 @@ describe('Trip', () => {
     expect(trip1.suggestedActivities).to.deep.equal([]);
   });
 
+  it('should be able to return the destination it is linked to', () => {
+    expect(trip1.getDestination(destinations)).to.deep.equal(
+      {
+        "id": 8,
+        "destination": "Tokyo, Japan",
+        "estimatedLodgingCostPerDay": 125,
+        "estimatedFlightCostPerPerson": 1000,
+        "image": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1971&q=80",
+        "alt": "city with people walking in crosswalk and brightly lit shops at night"
+      }
+    );
+    expect(trip2.getDestination(destinations)).to.deep.equal(
+      {
+        "id": 3,
+        "destination": "Sydney, Austrailia",
+        "estimatedLodgingCostPerDay": 130,
+        "estimatedFlightCostPerPerson": 950,
+        "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+        "alt": "opera house and city buildings on the water with boats"
+      }
+    );
+  });
+
   it('should be able to calculate a total cost', () => {
     expect(trip1.getCost(destinations)).to.equal(2200);
     expect(trip2.getCost(destinations)).to.equal(7799);

@@ -10,8 +10,13 @@ class Trip {
     this.suggestedActivities = tripObj.suggestedActivities;
   };
 
-  getCost(destinationData) {
+  getDestination(destinationData) {
     const destination = destinationData.find(datum => datum.id === this.destinationID);
+    return destination;
+  }
+
+  getCost(destinationData) {
+    const destination = this.getDestination(destinationData);
     const costBeforeFee = (this.travelers * destination.estimatedFlightCostPerPerson) + (this.duration * destination.estimatedLodgingCostPerDay);
     const costAfterFee = costBeforeFee + (costBeforeFee * 0.1);
     return costAfterFee;
