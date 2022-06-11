@@ -12,15 +12,18 @@ let travelers, currentTraveler, destinations;
 
 //Query Selectors
 const homeButton = document.querySelector('.home-button');
-const pastButton = document.querySelector('.past-trips-button');
-const presentButton = document.querySelector('.present-trips-button');
-const futureButton = document.querySelector('.future-trips-button');
-const pendingButton = document.querySelector('.pending-trips-button');
 const homePage = document.querySelector('.home-page');
+const nameWelcome = document.querySelector('.name-welcome');
+const moneySpentWelcome = document.querySelector('h3');
+const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
+const presentButton = document.querySelector('.present-trips-button');
 const presentPage = document.querySelector('.present-page');
+const futureButton = document.querySelector('.future-trips-button');
 const futurePage = document.querySelector('.future-page');
+const pendingButton = document.querySelector('.pending-trips-button');
 const pendingPage = document.querySelector('.pending-page');
+
 
 //Functions
 const loadData = () => {
@@ -35,20 +38,26 @@ const loadData = () => {
 const createTraveler = (travelersData) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
-  console.log(currentTraveler);
-  //update welcome message with name and money spent
-}
+  generateNameMessage();
+};
 
 const getTravelerTrips = (tripsData) => {
   currentTraveler.listAllTrips(tripsData.trips);
-  console.log(currentTraveler.allTrips);
   //update grids
-}
+};
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
-  console.log(destinations);
-}
+  generateMoneySpentMessage();
+};
+
+const generateNameMessage = () => {
+  nameWelcome.innerText = `${currentTraveler.returnTravelerFirstName()}, Where Will You Go Next?`;
+};
+
+const generateMoneySpentMessage = () => {
+  moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
+};
 
 const show = (element) => {
   element.classList.remove('hidden');
