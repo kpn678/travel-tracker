@@ -17,20 +17,23 @@ const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
+const pastGrid = document.querySelector('.past-grid');
 const presentButton = document.querySelector('.present-trips-button');
 const presentPage = document.querySelector('.present-page');
+const presentGrid = document.querySelector('.present-grid');
 const futureButton = document.querySelector('.future-trips-button');
 const futurePage = document.querySelector('.future-page');
+const futureGrid = document.querySelector('.future-grid');
 const pendingButton = document.querySelector('.pending-trips-button');
 const pendingPage = document.querySelector('.pending-page');
-
+const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
 const loadData = () => {
   getAll().then(data => {
     createTraveler(data[0]);
-    getTravelerTrips(data[1]);
     getDestinations(data[2]);
+    getTravelerTrips(data[1]);
     })
     .catch((error) => console.log(`There has been an error! ${error}`));
 };
@@ -41,14 +44,17 @@ const createTraveler = (travelersData) => {
   generateNameMessage();
 };
 
-const getTravelerTrips = (tripsData) => {
-  currentTraveler.listAllTrips(tripsData.trips);
-  //update grids
-};
-
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
   generateMoneySpentMessage();
+};
+
+const getTravelerTrips = (tripsData) => {
+  currentTraveler.listAllTrips(tripsData.trips);
+  generatePastGrid();
+  // generateCurrentGrid();
+  // generateFutureGrid();
+  // generatePendingGrid();
 };
 
 const generateNameMessage = () => {
@@ -57,6 +63,35 @@ const generateNameMessage = () => {
 
 const generateMoneySpentMessage = () => {
   moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
+};
+
+const generatePastGrid = () => {
+  currentTraveler.listPastTrips().forEach(trip => {
+    const destination = trip.getDestination(destinations);
+    pastGrid.innerHTML +=
+      `<article class='card'>
+
+        <section class = 'card-text'>
+          <p>${trip.getDestination(destinations).destination}</p>
+          <p>${trip.date}</p>
+          <p>${trip.duration}</p>
+          <p>${trip.travelers}</p>
+        </section>
+      </article>`
+  });
+};
+//<img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+
+const generateCurrentGrid = () => {
+  currentTraveler.listCurrentTrips();
+};
+
+const generateFutureGrid = () => {
+  currentTraveler.listFutureTrips();
+};
+
+const generatePendingGrid = () => {
+  currentTraveler.listPendingTrips();
 };
 
 const show = (element) => {
