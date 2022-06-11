@@ -4,9 +4,11 @@ import './css/styles.css';
 import { getAll } from "./apiCalls.js";
 
 import Traveler from "./Traveler";
+import Trip from './Trip';
+import Destination from './Destination';
 
 //Global Variables
-let travelerData, tripData, destinationData;
+let travelers, currentTraveler, destinations;
 
 //Query Selectors
 const homeButton = document.querySelector('.home-button');
@@ -23,20 +25,30 @@ const pendingPage = document.querySelector('.pending-page');
 //Functions
 const loadData = () => {
   getAll().then(data => {
-    travelerData = data[0];
-    tripData = data[1];
-    destinationData = data[2];
-    renderData();
+    createTraveler(data[0]);
+    getTravelerTrips(data[1]);
+    getDestinations(data[2]);
     })
     .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
-const renderData = () => {
-  const randomTravelerObj = travelerData.travelers[Math.floor(Math.random() * travelerData.travelers.length)];
-  const randomTraveler = new Traveler(randomTravelerObj);
-  const trips = tripData.trips;
-  const destinations = destinationData.destinations;
-};
+const createTraveler = (travelersData) => {
+  travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
+  currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
+  console.log(currentTraveler);
+  //update welcome message with name and money spent
+}
+
+const getTravelerTrips = (tripsData) => {
+  currentTraveler.listAllTrips(tripsData.trips);
+  console.log(currentTraveler.allTrips);
+  //update grids
+}
+
+const getDestinations = (destinationsData) => {
+  destinations = destinationsData.destinations.map(destination => new Destination(destination));
+  console.log(destinations);
+}
 
 const show = (element) => {
   element.classList.remove('hidden');
