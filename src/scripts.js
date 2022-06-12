@@ -42,25 +42,26 @@ const renderData = () => {
 const createTraveler = (travelersData) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
-  // generateNameMessage();
 };
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
-  // generateMoneySpentMessage();
 };
 
 const getTravelerTrips = (tripsData) => {
   currentTraveler.listAllTrips(tripsData.trips);
+  currentTraveler.allTrips.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
 };
 
 const loadPage = () => {
   generateNameMessage();
   generateMoneySpentMessage();
   generatePastGrid();
-  // generateCurrentGrid();
-  // generateFutureGrid();
-  // generatePendingGrid();
+  generateCurrentGrid();
+  generateFutureGrid();
+  generatePendingGrid();
 };
 
 const generateNameMessage = () => {
@@ -74,31 +75,62 @@ const generateMoneySpentMessage = () => {
 
 const generatePastGrid = () => {
   currentTraveler.listPastTrips().forEach(trip => {
-    const destination = trip.getDestination(destinations);
     pastGrid.innerHTML +=
-      `<article class='card'>
-
-        <section class = 'card-text'>
-          <p>${trip.getDestination(destinations).destination}</p>
-          <p>${trip.date}</p>
-          <p>${trip.duration}</p>
-          <p>${trip.travelers}</p>
-        </section>
-        </article>`;
+    `<article class='card'>
+      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+      <section class = 'card-text'>
+        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Duration: <b>${trip.duration} days</b></p>
+        <p># of Travelers: <b>${trip.travelers}</b></p>
+      </section>
+    </article>`;
   });
 };
-//<img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
 
 const generateCurrentGrid = () => {
-  currentTraveler.listCurrentTrips();
+  currentTraveler.listCurrentTrips().forEach(trip => {
+    currentGrid.innerHTML +=
+    `<article class='card'>
+      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+      <section class = 'card-text'>
+        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Duration: <b>${trip.duration} days</b></p>
+        <p># of Travelers: <b>${trip.travelers}</b></p>
+      </section>
+    </article>`;
+  });
 };
 
 const generateFutureGrid = () => {
-  currentTraveler.listFutureTrips();
+  currentTraveler.listFutureTrips().forEach(trip => {
+    futureGrid.innerHTML +=
+    `<article class='card'>
+      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+      <section class = 'card-text'>
+        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Duration: <b>${trip.duration} days</b></p>
+        <p># of Travelers: <b>${trip.travelers}</b></p>
+      </section>
+    </article>`;
+  });
 };
 
 const generatePendingGrid = () => {
-  currentTraveler.listPendingTrips();
+  currentTraveler.listPendingTrips().forEach(trip => {
+    pendingGrid.innerHTML +=
+    `<article class='card'>
+      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+      <section class = 'card-text'>
+        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Duration: <b>${trip.duration} days</b></p>
+        <p># of Travelers: <b>${trip.travelers}</b></p>
+      </section>
+    </article>`;
+  });
 };
 
 const show = (element) => {
