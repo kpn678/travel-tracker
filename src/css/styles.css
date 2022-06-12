@@ -6,13 +6,17 @@ body {
   margin: 0px;
 }
 
-nav {
+nav, main, .home-page, .home-content, form {
   align-items: center;
-  background-color: #326771;
   display: flex;
   flex-direction: column;
+}
+
+nav {
+  background-color: #326771;
   justify-content: space-around;
   height: 16%;
+  opacity: 0.9;
   width: 100%;
 }
 
@@ -21,7 +25,6 @@ h1 {
 }
 
 .nav-buttons {
-  align-items: flex-end;
   display: flex;
   justify-content: space-between;
   margin-left: 30px;
@@ -29,12 +32,9 @@ h1 {
 }
 
 button {
-  align-items: center;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  display: flex;
-  justify-content: space-evenly;
   margin-bottom: 10px;
   width: 120px;
 }
@@ -43,16 +43,21 @@ button {
   color: #FFF;
 }
 
-main, .home-page {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
 main {
   height: 84%;
   overflow: auto;
+  width: 100%;
+}
+
+.home-page {
+  width: 100%;
+}
+
+.home-content {
+  background-color: #987284;
+  margin-top: 30px;
+  opacity: 0.9;
+  width: 40%;
 }
 
 .past-grid, .present-grid, .future-grid, .pending-grid {
@@ -69,6 +74,7 @@ main {
   display: flex;
   flex-direction: column;
   height: 400px;
+  opacity: 0.9;
   width: 275px;
 }
 
