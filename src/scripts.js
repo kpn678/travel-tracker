@@ -15,6 +15,7 @@ const homeButton = document.querySelector('.home-button');
 const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
+const destinationSelection = document.querySelector('select');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
 const pastGrid = document.querySelector('.past-grid');
@@ -58,7 +59,7 @@ const getTravelerTrips = (tripsData) => {
 
 const generatePage = () => {
   generateWelcomeMessage();
-  // generateDestinationChoices();
+  generateDestinationChoices();
   generatePastGrid();
   generateCurrentGrid();
   generateFutureGrid();
@@ -68,6 +69,15 @@ const generatePage = () => {
 const generateWelcomeMessage = () => {
   nameWelcome.innerText = `${currentTraveler.returnTravelerFirstName()}, Where Will You Go Next?`;
   moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
+};
+
+const generateDestinationChoices = () => {
+  destinations.forEach(destination => {
+    const destinationChoice = document.createElement('option');
+    destinationChoice.innerText = destination.destination;
+    destinationChoice.value = destination.destination;
+    destinationSelection.appendChild(destinationChoice);
+  });
 };
 
 const generatePastGrid = () => {
