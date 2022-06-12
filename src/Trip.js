@@ -1,3 +1,5 @@
+import Destination from './Destination';
+
 class Trip {
   constructor(tripObj) {
     this.id = tripObj.id;
@@ -11,8 +13,8 @@ class Trip {
   };
 
   getDestination(destinationData) {
-    const destination = destinationData.find(datum => datum.id === this.destinationID);
-    return destination;
+    const destinationObj = destinationData.find(datum => datum.id === this.destinationID);
+    return new Destination(destinationObj);
   }
 
   getCost(destinationData) {

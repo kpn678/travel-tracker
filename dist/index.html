@@ -1,16 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
-</head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
-
-</body>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Travel Tracker</title>
+  </head>
+  <body>
+    <nav>
+      <section class="title">
+        <h1>Travel Tracker</h1>
+      </section>
+      <section class="nav-buttons">
+        <button class='home-button'>HOME</button>
+        <button class='past-trips-button'>PAST TRIPS</button>
+        <button class='present-trips-button'>PRESENT TRIPS</button>
+        <button class='future-trips-button'>FUTURE TRIPS</button>
+        <button class='pending-trips-button'>PENDING TRIPS</button>
+      </section>
+    </nav>
+    <main>
+      <section class='home-page'>
+        <h2 class="name-welcome"></h2>
+        <h3></h3>
+        <form>
+          form here
+        </form>
+      </section>
+      <section class='past-page hidden'>
+        <section class='past-grid'>
+        </section>
+      </section>
+      <section class='present-page hidden'>
+        <section class='present-grid'>
+        </section>
+      </section>
+      <section class='future-page hidden'>
+        <section class='future-grid'>
+        </section>
+      </section>
+      <section class='pending-page hidden'>
+        <section class='pending-grid'>
+        </section>
+      </section>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
 </html>
