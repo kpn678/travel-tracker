@@ -15,6 +15,7 @@ const homeButton = document.querySelector('.home-button');
 const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
+const destinationSelection = document.querySelector('select');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
 const pastGrid = document.querySelector('.past-grid');
@@ -30,13 +31,14 @@ const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
 const renderData = () => {
-  getAll().then(data => {
+  getAll()
+  .then(data => {
     createTraveler(data[0]);
     getDestinations(data[1]);
     getTravelerTrips(data[2]);
-    loadPage();
-    })
-    .catch((error) => console.log(`There has been an error! ${error}`));
+    generatePage();
+  })
+  .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
 const createTraveler = (travelersData) => {
@@ -55,22 +57,27 @@ const getTravelerTrips = (tripsData) => {
   });
 };
 
-const loadPage = () => {
-  generateNameMessage();
-  generateMoneySpentMessage();
+const generatePage = () => {
+  generateWelcomeMessage();
+  generateDestinationChoices();
   generatePastGrid();
   generateCurrentGrid();
   generateFutureGrid();
   generatePendingGrid();
 };
 
-const generateNameMessage = () => {
+const generateWelcomeMessage = () => {
   nameWelcome.innerText = `${currentTraveler.returnTravelerFirstName()}, Where Will You Go Next?`;
+  moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
 };
 
-const generateMoneySpentMessage = () => {
-  moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
-  console.log(currentTraveler.allTrips)
+const generateDestinationChoices = () => {
+  destinations.forEach(destination => {
+    const destinationChoice = document.createElement('option');
+    destinationChoice.innerText = destination.destination;
+    destinationChoice.value = destination.destination;
+    destinationSelection.appendChild(destinationChoice);
+  });
 };
 
 const generatePastGrid = () => {
