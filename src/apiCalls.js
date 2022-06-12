@@ -2,13 +2,13 @@ let apiTravelerData, apiTripData, apiDestinationData;
 
 export const getAll = () => {
   apiTravelerData = getData("travelers");
-  apiTripData = getData("trips");
   apiDestinationData = getData("destinations");
+  apiTripData = getData("trips");
   return Promise.all(
     [
       apiTravelerData,
-      apiTripData,
       apiDestinationData,
+      apiTripData,
     ]
   );
 };

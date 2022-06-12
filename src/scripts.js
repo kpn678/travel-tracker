@@ -29,11 +29,12 @@ const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
-const loadData = () => {
+const renderData = () => {
   getAll().then(data => {
     createTraveler(data[0]);
-    getDestinations(data[2]);
-    getTravelerTrips(data[1]);
+    getDestinations(data[1]);
+    getTravelerTrips(data[2]);
+    loadPage();
     })
     .catch((error) => console.log(`There has been an error! ${error}`));
 };
@@ -41,16 +42,21 @@ const loadData = () => {
 const createTraveler = (travelersData) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
-  generateNameMessage();
+  // generateNameMessage();
 };
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
-  generateMoneySpentMessage();
+  // generateMoneySpentMessage();
 };
 
 const getTravelerTrips = (tripsData) => {
   currentTraveler.listAllTrips(tripsData.trips);
+};
+
+const loadPage = () => {
+  generateNameMessage();
+  generateMoneySpentMessage();
   generatePastGrid();
   // generateCurrentGrid();
   // generateFutureGrid();
@@ -63,6 +69,7 @@ const generateNameMessage = () => {
 
 const generateMoneySpentMessage = () => {
   moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
+  console.log(currentTraveler.allTrips)
 };
 
 const generatePastGrid = () => {
@@ -77,7 +84,7 @@ const generatePastGrid = () => {
           <p>${trip.duration}</p>
           <p>${trip.travelers}</p>
         </section>
-      </article>`
+        </article>`;
   });
 };
 //<img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
@@ -143,7 +150,7 @@ const displayPending = () => {
 };
 
 //Event Listeners
-window.addEventListener("load", loadData);
+window.addEventListener("load", renderData);
 homeButton.addEventListener('click', displayHome);
 pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
