@@ -12,7 +12,7 @@
       <section class="title">
         <h1>Travel Tracker</h1>
       </section>
-      <section class="nav-buttons">
+      <section class='nav-buttons'>
         <button class='home-button'>HOME</button>
         <button class='past-trips-button'>PAST TRIPS</button>
         <button class='present-trips-button'>PRESENT TRIPS</button>
@@ -23,9 +23,27 @@
     <main>
       <section class='home-page'>
         <h2 class="name-welcome"></h2>
-        <h3></h3>
+        <h3>Money Spent</h3>
         <form>
-          form here
+          <p class='label'>Select Start Date:</p>
+          <label for='calendarInput'>
+            <input class='calendar-input' id='calendarInput' name='calendarInput' type='date' min='' value='' required>
+          </label>
+          <p class='label'>Enter Trip Duration:</p>
+          <label for='durationInput'>
+            <input class='duration-input' id='durationInput' name='durationInput' type='number' placeholder='# of Days' required>
+          </label>
+          <p class='label'>Enter Number of Travelers:</p>
+          <label for='travelersInput'>
+            <input class='travelers-input' id='travelersInput' name='travelersInput' type='number' placeholder='# of Travelers' required>
+          </label>
+          <p class='label'>Choose a Destination:</p>
+          <label for='destinationInput'></label>
+          <select class='destination-input' id='destinationInput' name='destinationInput' required></select>
+          <br><br>
+          <button class='cost-estimate' type='submit'>Get Cost Estimate!</button>
+          <button class='submit' type='submit'>Let's Go on an Adventure!</button>
+          <p class='error-box'></p>
         </form>
       </section>
       <section class='past-page hidden'>
