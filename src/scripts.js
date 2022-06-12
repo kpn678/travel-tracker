@@ -30,13 +30,14 @@ const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
 const renderData = () => {
-  getAll().then(data => {
+  getAll()
+  .then(data => {
     createTraveler(data[0]);
     getDestinations(data[1]);
     getTravelerTrips(data[2]);
-    loadPage();
-    })
-    .catch((error) => console.log(`There has been an error! ${error}`));
+    generatePage();
+  })
+  .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
 const createTraveler = (travelersData) => {
@@ -55,22 +56,18 @@ const getTravelerTrips = (tripsData) => {
   });
 };
 
-const loadPage = () => {
-  generateNameMessage();
-  generateMoneySpentMessage();
+const generatePage = () => {
+  generateWelcomeMessage();
+  // generateDestinationChoices();
   generatePastGrid();
   generateCurrentGrid();
   generateFutureGrid();
   generatePendingGrid();
 };
 
-const generateNameMessage = () => {
+const generateWelcomeMessage = () => {
   nameWelcome.innerText = `${currentTraveler.returnTravelerFirstName()}, Where Will You Go Next?`;
-};
-
-const generateMoneySpentMessage = () => {
   moneySpentWelcome.innerText = `You have spent ${currentTraveler.calculateYearlyCost(destinations)} this year. Keep exploring!`;
-  console.log(currentTraveler.allTrips)
 };
 
 const generatePastGrid = () => {
