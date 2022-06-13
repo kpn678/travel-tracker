@@ -8,7 +8,7 @@ import Trip from './Trip';
 import Destination from './Destination';
 
 //Global Variables
-let travelers, currentTraveler, destinations, trips;
+let travelers, currentTraveler, currentTravelerID, destinations, trips;
 
 //Query Selectors
 const loginPage = document.querySelector('.login-page');
@@ -43,10 +43,11 @@ const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
 const verifyTraveler = () => {
-  usernameInput.value
   event.preventDefault();
-  if (passwordInput.value === 'travel' && usernameInput.value === 'traveler' ) {
-    renderData();
+  let username = usernameInput.value.slice(0, 8);
+  currentTravelerID = usernameInput.value.slice(8);
+  if (username === 'traveler' && 0 < currentTravelerID && currentTravelerID < 51 && passwordInput.value === 'travel') {
+    renderData(currentTravelerID);
   } else {
     errorBox.innerText = 'Please review your username and/or password and try again!';
   };
