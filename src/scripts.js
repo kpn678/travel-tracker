@@ -11,17 +11,22 @@ import Destination from './Destination';
 let travelers, currentTraveler, destinations, trips;
 
 //Query Selectors
+const loginPage = document.querySelector('.login-page');
+const usernameInput = document.querySelector('.username');
+const passwordInput = document.querySelector('.password');
+const errorBox = document.querySelector('.error-box');
+const loginButton = document.querySelector('.login-button');
+const navButtons = document.querySelector('.nav-buttons');
 const homeButton = document.querySelector('.home-button');
 const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
-const form = document.querySelector('form');
 const calendarInput = document.querySelector('.calendar-input');
 const durationInput = document.querySelector('.duration-input');
 const travelersInput = document.querySelector('.travelers-input');
 const destinationSelection = document.querySelector('select');
-const costButton = document.querySelector('.cost-estimate');
-const submitButton = document.querySelector('.submit');
+const costButton = document.querySelector('.cost-estimate-button');
+const submitButton = document.querySelector('.submit-button');
 export const messageBox = document.querySelector('.message-box');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
@@ -37,6 +42,16 @@ const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
+const verifyTraveler = () => {
+  usernameInput.value
+  event.preventDefault();
+  if (passwordInput.value === 'travel' && usernameInput.value === 'traveler' ) {
+    renderData();
+  } else {
+    errorBox.innerText = 'Please review your username and/or password and try again!';
+  };
+};
+
 const renderData = () => {
   getAll()
   .then(data => {
@@ -87,6 +102,9 @@ const getTravelerTrips = (tripsData) => {
 };
 
 const generatePage = () => {
+  hide(loginPage);
+  show(navButtons);
+  show(homePage);
   generateWelcomeMessage();
   generateDestinationChoices();
   generatePastGrid();
@@ -249,7 +267,8 @@ const createFormTripObj = () => {
 };
 
 //Event Listeners
-window.addEventListener("load", renderData);
+// window.addEventListener('load', loadLogin);
+loginButton.addEventListener('click', verifyTraveler);
 homeButton.addEventListener('click', displayHome);
 pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
