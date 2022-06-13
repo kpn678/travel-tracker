@@ -8,20 +8,25 @@ import Trip from './Trip';
 import Destination from './Destination';
 
 //Global Variables
-let travelers, currentTraveler, destinations, trips;
+let travelers, currentTraveler, currentTravelerID, destinations, trips;
 
 //Query Selectors
+const loginPage = document.querySelector('.login-page');
+const usernameInput = document.querySelector('.username');
+const passwordInput = document.querySelector('.password');
+const errorBox = document.querySelector('.error-box');
+const loginButton = document.querySelector('.login-button');
+const navButtons = document.querySelector('.nav-buttons');
 const homeButton = document.querySelector('.home-button');
 const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
-const form = document.querySelector('form');
 const calendarInput = document.querySelector('.calendar-input');
 const durationInput = document.querySelector('.duration-input');
 const travelersInput = document.querySelector('.travelers-input');
 const destinationSelection = document.querySelector('select');
-const costButton = document.querySelector('.cost-estimate');
-const submitButton = document.querySelector('.submit');
+const costButton = document.querySelector('.cost-estimate-button');
+const submitButton = document.querySelector('.submit-button');
 export const messageBox = document.querySelector('.message-box');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
@@ -37,10 +42,21 @@ const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
-const renderData = () => {
+const verifyTraveler = () => {
+  event.preventDefault();
+  let username = usernameInput.value.slice(0, 8);
+  currentTravelerID = usernameInput.value.slice(8);
+  if (username === 'traveler' && 0 < currentTravelerID && currentTravelerID < 51 && passwordInput.value === 'travel') {
+    renderData(currentTravelerID);
+  } else {
+    errorBox.innerText = 'Please review your username and/or password and try again!';
+  };
+};
+
+const renderData = (id) => {
   getAll()
   .then(data => {
-    createTraveler(data[0]);
+    createTraveler(data[0], id);
     getDestinations(data[1]);
     getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
@@ -52,7 +68,6 @@ const renderData = () => {
 export const updateData = () => {
   getAll()
   .then(data => {
-    keepTraveler(data[0]);
     getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
     generatePendingGrid();
@@ -61,15 +76,10 @@ export const updateData = () => {
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
-const createTraveler = (travelersData) => {
+const createTraveler = (travelersData, id) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
-  currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
+  currentTraveler = travelers[id - 1];
 };
-
-const keepTraveler = (travelersData) => {
-  travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
-  currentTraveler = travelers[currentTraveler.id - 1];
-}
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
@@ -87,6 +97,9 @@ const getTravelerTrips = (tripsData) => {
 };
 
 const generatePage = () => {
+  hide(loginPage);
+  show(navButtons);
+  show(homePage);
   generateWelcomeMessage();
   generateDestinationChoices();
   generatePastGrid();
@@ -249,7 +262,7 @@ const createFormTripObj = () => {
 };
 
 //Event Listeners
-window.addEventListener("load", renderData);
+loginButton.addEventListener('click', verifyTraveler);
 homeButton.addEventListener('click', displayHome);
 pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
