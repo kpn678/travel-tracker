@@ -53,10 +53,10 @@ const verifyTraveler = () => {
   };
 };
 
-const renderData = () => {
+const renderData = (id) => {
   getAll()
   .then(data => {
-    createTraveler(data[0]);
+    createTraveler(data[0], id);
     getDestinations(data[1]);
     getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
@@ -77,9 +77,9 @@ export const updateData = () => {
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
-const createTraveler = (travelersData) => {
+const createTraveler = (travelersData, id) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
-  currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
+  currentTraveler = travelers[id - 1];
 };
 
 const keepTraveler = (travelersData) => {
