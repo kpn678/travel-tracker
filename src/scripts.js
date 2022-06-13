@@ -8,7 +8,7 @@ import Trip from './Trip';
 import Destination from './Destination';
 
 //Global Variables
-let travelers, currentTraveler, destinations;
+let travelers, currentTraveler, destinations, trips;
 
 //Query Selectors
 const homeButton = document.querySelector('.home-button');
@@ -16,6 +16,7 @@ const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
 const form = document.querySelector('form');
+const calendarInput = document.querySelector('.calendar-input');
 const durationInput = document.querySelector('.duration-input');
 const travelersInput = document.querySelector('.travelers-input');
 const destinationSelection = document.querySelector('select');
@@ -41,6 +42,7 @@ const renderData = () => {
   .then(data => {
     createTraveler(data[0]);
     getDestinations(data[1]);
+    getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
     generatePage();
   })
@@ -54,6 +56,10 @@ const createTraveler = (travelersData) => {
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
+};
+
+const getTripsRepo = (tripsData) => {
+  trips = tripsData.trips.map(trip => new Trip(trip));
 };
 
 const getTravelerTrips = (tripsData) => {
@@ -202,6 +208,22 @@ const getEstimate = () => {
   event.preventDefault();
 };
 
+const createFormDataObj = () => {
+  event.preventDefault();
+  console.log(trips);
+  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+  let formDataObj = {
+    id: trips.length + 1,
+    userID: currentTraveler.id,
+    destinationID: destinationMatch.id,
+    travelers: parseInt(travelersInput.value),
+    date: calendarInput.value,
+    duration: parseInt(durationInput.value),
+    status: 'pending',
+    suggestedActivities: []
+  };
+};
+
 //Event Listeners
 window.addEventListener("load", renderData);
 homeButton.addEventListener('click', displayHome);
@@ -210,3 +232,4 @@ presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
 costButton.addEventListener('click', getEstimate);
+submitButton.addEventListener('click', createFormDataObj);
