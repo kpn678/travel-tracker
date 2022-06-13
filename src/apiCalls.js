@@ -40,7 +40,7 @@ export const postTrip = (trip) => {
       if (!response.ok) {
         throw new Error("Please make sure all fields are filled out.");
       } else {
-        messageBox.innerText = "Your trip has been submitted, please view it on your pending trips page."
+        messageBox.innerText = "Your trip has been submitted!"
         return response.json();
       };
     })
