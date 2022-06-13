@@ -68,7 +68,6 @@ const renderData = (id) => {
 export const updateData = () => {
   getAll()
   .then(data => {
-    keepTraveler(data[0]);
     getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
     generatePendingGrid();
@@ -81,11 +80,6 @@ const createTraveler = (travelersData, id) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = travelers[id - 1];
 };
-
-const keepTraveler = (travelersData) => {
-  travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
-  currentTraveler = travelers[currentTraveler.id - 1];
-}
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
@@ -268,7 +262,6 @@ const createFormTripObj = () => {
 };
 
 //Event Listeners
-// window.addEventListener('load', loadLogin);
 loginButton.addEventListener('click', verifyTraveler);
 homeButton.addEventListener('click', displayHome);
 pastButton.addEventListener('click', displayPast);
