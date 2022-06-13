@@ -11,6 +11,7 @@
     <nav>
       <section class="title">
         <h1>Travel Tracker</h1>
+        <img class="travel-icon" src="./images/passport.png" alt="travel icon" height="40px" width="40px"/>
       </section>
       <section class='nav-buttons'>
         <button class='home-button'>HOME</button>
@@ -26,20 +27,21 @@
           <h2 class="name-welcome"></h2>
           <h3>Money Spent</h3>
           <form>
-            <p class='label'>Select Start Date:</p>
             <label for='calendarInput'>
+              Select Start Date: <br><br>
               <input class='calendar-input' id='calendarInput' name='calendarInput' type='date' min='' value='' required>
             </label>
-            <p class='label'>Enter Trip Duration:</p>
             <label for='durationInput'>
+              Enter Trip Duration: <br><br>
               <input class='duration-input' id='durationInput' name='durationInput' type='number' placeholder='# of Days' required>
             </label>
-            <p class='label'>Enter Number of Travelers:</p>
             <label for='travelersInput'>
+              Enter Number of Travelers: <br><br>
               <input class='travelers-input' id='travelersInput' name='travelersInput' type='number' placeholder='# of Travelers' required>
             </label>
-            <p class='label'>Choose a Destination:</p>
-            <label for='destinationInput'></label>
+            <label for='destinationInput'>
+              Choose a Destination: <br>
+            </label>
             <select class='destination-input' id='destinationInput' name='destinationInput' required></select>
             <br><br>
             <button class='cost-estimate' id='costEstimate' type='submit'>GET COST ESTIMATE!</button><br>
@@ -48,19 +50,19 @@
           </form>
         </section>
       </section>
-      <section class='past-page hidden'>
+      <section class='past-page hidden' tabindex="0">
         <section class='past-grid'>
         </section>
       </section>
-      <section class='present-page hidden'>
+      <section class='present-page hidden' tabindex="0">
         <section class='present-grid'>
         </section>
       </section>
-      <section class='future-page hidden'>
+      <section class='future-page hidden' tabindex="0">
         <section class='future-grid'>
         </section>
       </section>
-      <section class='pending-page hidden'>
+      <section class='pending-page hidden' tabindex="0">
         <section class='pending-grid'>
         </section>
       </section>
