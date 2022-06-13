@@ -1,7 +1,7 @@
 //Imports
 import './css/styles.css';
 
-import { getAll } from "./apiCalls.js";
+import { getAll, postTrip } from "./apiCalls.js";
 
 import Traveler from "./Traveler";
 import Trip from './Trip';
@@ -22,7 +22,7 @@ const travelersInput = document.querySelector('.travelers-input');
 const destinationSelection = document.querySelector('select');
 const costButton = document.querySelector('.cost-estimate');
 const submitButton = document.querySelector('.submit');
-const messageBox = document.querySelector('.message-box');
+export const messageBox = document.querySelector('.message-box');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
 const pastGrid = document.querySelector('.past-grid');
@@ -49,10 +49,27 @@ const renderData = () => {
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
+export const updateData = () => {
+  getAll()
+  .then(data => {
+    keepTraveler(data[0]);
+    getTripsRepo(data[2]);
+    getTravelerTrips(data[2]);
+    generatePendingGrid();
+    clearFormInput();
+  })
+  .catch((error) => console.log(`There has been an error! ${error}`));
+};
+
 const createTraveler = (travelersData) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
 };
+
+const keepTraveler = (travelersData) => {
+  travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
+  currentTraveler = travelers[currentTraveler.id - 1];
+}
 
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
@@ -152,6 +169,13 @@ const generatePendingGrid = () => {
   });
 };
 
+const clearFormInput = () => {
+  calendarInput.value = '';
+  durationInput.value = '';
+  travelersInput.value = '';
+  destinationInput.value = '';
+};
+
 const show = (element) => {
   element.classList.remove('hidden');
 };
@@ -208,20 +232,20 @@ const getEstimate = () => {
   event.preventDefault();
 };
 
-const createFormDataObj = () => {
+const createFormTripObj = () => {
   event.preventDefault();
-  console.log(trips);
   const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
-  let formDataObj = {
+  let tripDataObj = {
     id: trips.length + 1,
     userID: currentTraveler.id,
     destinationID: destinationMatch.id,
     travelers: parseInt(travelersInput.value),
-    date: calendarInput.value,
+    date: calendarInput.value.split('-').join('/'),
     duration: parseInt(durationInput.value),
     status: 'pending',
     suggestedActivities: []
   };
+  postTrip(tripDataObj);
 };
 
 //Event Listeners
@@ -232,4 +256,4 @@ presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
 costButton.addEventListener('click', getEstimate);
-submitButton.addEventListener('click', createFormDataObj);
+submitButton.addEventListener('click', createFormTripObj);
