@@ -34,13 +34,14 @@ h1 {
 button {
   background-color: transparent;
   border: none;
+  color: #FFF;
   cursor: pointer;
   margin-bottom: 10px;
   width: 120px;
 }
 
-.home-button:hover, .home-button:focus, .past-trips-button:hover, .past-trips-button:focus, .present-trips-button:hover, .present-trips-button:focus, .future-trips-button:hover, .future-trips-button:focus, .pending-trips-button:hover, .pending-trips-button:focus {
-  color: #FFF;
+.nav-buttons > button:hover, .nav-buttons > button:focus, form > button:hover {
+  text-decoration: underline;
 }
 
 main {
