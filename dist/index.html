@@ -22,11 +22,25 @@
       </section>
     </nav>
     <main>
-      <section class='home-page'>
+      <section class='login-page'>
+        <form class='login-form'>
+          <label for='username'>
+            Username: <br><br>
+            <input class='username' id='username' name='username' type='text' required>
+          </label>
+          <label for='password'>
+            Password: <br><br>
+            <input class='password' id='password' name='password' type='password' required>
+          </label>
+          <button class='login-button' id='login-button' type='submit'>LOGIN</button>
+          <p class='error-box'></p>
+        </form>
+      </section>
+      <section class='home-page hidden'>
         <section class='home-content'>
           <h2 class="name-welcome"></h2>
           <h3>Money Spent</h3>
-          <form>
+          <form class="trip-request">
             <label for='calendarInput'>
               Select Start Date: <br><br>
               <input class='calendar-input' id='calendarInput' name='calendarInput' type='date' min='' value='' required>

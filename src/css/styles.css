@@ -6,7 +6,7 @@ body {
   margin: 0px;
 }
 
-nav, main, .home-page, .home-content, form, label {
+nav, main, .login-page, .login-form, .home-page, .home-content, .trip-request, label {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ button {
   width: 120px;
 }
 
-.nav-buttons > button:hover, .nav-buttons > button:focus, form > button:hover {
+.nav-buttons > button:hover, .nav-buttons > button:focus, .login-button:hover, .trip-request > button:hover {
   text-decoration: underline;
 }
 
@@ -60,15 +60,23 @@ main {
   width: 100%;
 }
 
-.home-page {
+.login-page, .home-page {
   width: 100%;
 }
 
-.home-content {
+.login-form, .home-content {
   background-color: #987284;
-  margin-top: 30px;
   opacity: 0.9;
   width: 40%;
+}
+
+.login-form {
+  margin-top: 75px;
+  padding-top: 20px;
+}
+
+.home-content {
+  margin-top: 30px;
 }
 
 label {
