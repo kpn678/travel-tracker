@@ -1,6 +1,6 @@
 //Imports
 import './css/styles.css';
-
+import './images/passport.png';
 import { getAll, postTrip } from "./apiCalls.js";
 
 import Traveler from "./Traveler";
