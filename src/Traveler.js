@@ -1,4 +1,4 @@
-import Trip from './trip';
+import Trip from './Trip';
 
 class Traveler {
   constructor(travelerObj) {
