@@ -1,21 +1,28 @@
 //Imports
 import './css/styles.css';
 
-import { getAll } from "./apiCalls.js";
+import { getAll, postTrip } from "./apiCalls.js";
 
 import Traveler from "./Traveler";
 import Trip from './Trip';
 import Destination from './Destination';
 
 //Global Variables
-let travelers, currentTraveler, destinations;
+let travelers, currentTraveler, destinations, trips;
 
 //Query Selectors
 const homeButton = document.querySelector('.home-button');
 const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
+const form = document.querySelector('form');
+const calendarInput = document.querySelector('.calendar-input');
+const durationInput = document.querySelector('.duration-input');
+const travelersInput = document.querySelector('.travelers-input');
 const destinationSelection = document.querySelector('select');
+const costButton = document.querySelector('.cost-estimate');
+const submitButton = document.querySelector('.submit');
+export const messageBox = document.querySelector('.message-box');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
 const pastGrid = document.querySelector('.past-grid');
@@ -35,8 +42,21 @@ const renderData = () => {
   .then(data => {
     createTraveler(data[0]);
     getDestinations(data[1]);
+    getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
     generatePage();
+  })
+  .catch((error) => console.log(`There has been an error! ${error}`));
+};
+
+export const updateData = () => {
+  getAll()
+  .then(data => {
+    keepTraveler(data[0]);
+    getTripsRepo(data[2]);
+    getTravelerTrips(data[2]);
+    generatePendingGrid();
+    clearFormInput();
   })
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
@@ -46,8 +66,17 @@ const createTraveler = (travelersData) => {
   currentTraveler = travelers[Math.floor(Math.random() * travelersData.travelers.length)];
 };
 
+const keepTraveler = (travelersData) => {
+  travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
+  currentTraveler = travelers[currentTraveler.id - 1];
+}
+
 const getDestinations = (destinationsData) => {
   destinations = destinationsData.destinations.map(destination => new Destination(destination));
+};
+
+const getTripsRepo = (tripsData) => {
+  trips = tripsData.trips.map(trip => new Trip(trip));
 };
 
 const getTravelerTrips = (tripsData) => {
@@ -140,6 +169,13 @@ const generatePendingGrid = () => {
   });
 };
 
+const clearFormInput = () => {
+  calendarInput.value = '';
+  durationInput.value = '';
+  travelersInput.value = '';
+  destinationInput.value = '';
+};
+
 const show = (element) => {
   element.classList.remove('hidden');
 };
@@ -188,6 +224,30 @@ const displayPending = () => {
   show(pendingPage);
 };
 
+const getEstimate = () => {
+  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+  const costEstimateBeforeFee = (destinationMatch.estimatedLodgingCostPerDay * durationInput.value) + (destinationMatch.estimatedFlightCostPerPerson * travelersInput.value);
+  const costEstimateAfterFee = costEstimateBeforeFee + (costEstimateBeforeFee * 0.1);
+  messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
+  event.preventDefault();
+};
+
+const createFormTripObj = () => {
+  event.preventDefault();
+  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+  let tripDataObj = {
+    id: trips.length + 1,
+    userID: currentTraveler.id,
+    destinationID: destinationMatch.id,
+    travelers: parseInt(travelersInput.value),
+    date: calendarInput.value.split('-').join('/'),
+    duration: parseInt(durationInput.value),
+    status: 'pending',
+    suggestedActivities: []
+  };
+  postTrip(tripDataObj);
+};
+
 //Event Listeners
 window.addEventListener("load", renderData);
 homeButton.addEventListener('click', displayHome);
@@ -195,3 +255,5 @@ pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
+costButton.addEventListener('click', getEstimate);
+submitButton.addEventListener('click', createFormTripObj);
