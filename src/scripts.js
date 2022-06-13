@@ -15,7 +15,13 @@ const homeButton = document.querySelector('.home-button');
 const homePage = document.querySelector('.home-page');
 const nameWelcome = document.querySelector('.name-welcome');
 const moneySpentWelcome = document.querySelector('h3');
+const form = document.querySelector('form');
+const durationInput = document.querySelector('.duration-input');
+const travelersInput = document.querySelector('.travelers-input');
 const destinationSelection = document.querySelector('select');
+const costButton = document.querySelector('.cost-estimate');
+const submitButton = document.querySelector('.submit');
+const messageBox = document.querySelector('.message-box');
 const pastButton = document.querySelector('.past-trips-button');
 const pastPage = document.querySelector('.past-page');
 const pastGrid = document.querySelector('.past-grid');
@@ -188,6 +194,14 @@ const displayPending = () => {
   show(pendingPage);
 };
 
+const getEstimate = () => {
+  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+  const costEstimateBeforeFee = (destinationMatch.estimatedLodgingCostPerDay * durationInput.value) + (destinationMatch.estimatedFlightCostPerPerson * travelersInput.value);
+  const costEstimateAfterFee = costEstimateBeforeFee + (costEstimateBeforeFee * 0.1);
+  messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
+  event.preventDefault();
+};
+
 //Event Listeners
 window.addEventListener("load", renderData);
 homeButton.addEventListener('click', displayHome);
@@ -195,3 +209,4 @@ pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
+costButton.addEventListener('click', getEstimate);
