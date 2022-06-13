@@ -6,7 +6,7 @@ body {
   margin: 0px;
 }
 
-nav, main, .home-page, .home-content, form {
+nav, main, .home-page, .home-content, form, label {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -59,6 +59,10 @@ main {
   margin-top: 30px;
   opacity: 0.9;
   width: 40%;
+}
+
+label {
+  margin-bottom: 15px;
 }
 
 .past-grid, .present-grid, .future-grid, .pending-grid {
