@@ -40,6 +40,7 @@ const futureGrid = document.querySelector('.future-grid');
 const pendingButton = document.querySelector('.pending-trips-button');
 const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
+const logoutButton = document.querySelector('.logout-button');
 
 //Functions
 const getTodaysDate = () => {
@@ -282,6 +283,10 @@ const displayPending = () => {
   show(pendingPage);
 };
 
+const refreshPage = () => {
+  window.location.reload();
+};
+
 //Event Listeners
 loginButton.addEventListener('click', verifyTraveler);
 costButton.addEventListener('click', getEstimate);
@@ -291,3 +296,4 @@ pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
+logoutButton.addEventListener('click', refreshPage);
