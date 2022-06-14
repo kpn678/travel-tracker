@@ -31,8 +31,7 @@ class Traveler {
   };
 
   listPendingTrips() {
-    let tripsPending = this.allTrips.filter(trip => trip.status === 'pending')
-    this.pendingTrips = tripsPending;
+    this.pendingTrips = this.allTrips.filter(trip => trip.status === 'pending')
     return this.pendingTrips;
   };
 
