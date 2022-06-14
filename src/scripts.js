@@ -42,6 +42,14 @@ const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
+const getTodaysDate = () => {
+  let today = new Date();
+  let yyyy = today.getFullYear();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
+  return `${yyyy}/${mm}/${dd}`;
+};
+
 const show = (element) => {
   element.classList.remove('hidden');
 };
@@ -76,10 +84,10 @@ const renderData = (id) => {
 export const updateData = () => {
   getAll()
   .then(data => {
+    clearFormInput();
     getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
     generatePendingGrid();
-    clearFormInput();
   })
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
@@ -131,7 +139,8 @@ const generateDestinationChoices = () => {
 };
 
 const generatePastGrid = () => {
-  currentTraveler.listPastTrips().forEach(trip => {
+  const todaysDate = getTodaysDate();
+  currentTraveler.listPastTrips(todaysDate).forEach(trip => {
     pastGrid.innerHTML +=
     `<article class='card'>
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
@@ -146,7 +155,8 @@ const generatePastGrid = () => {
 };
 
 const generateCurrentGrid = () => {
-  currentTraveler.listCurrentTrips().forEach(trip => {
+  const todaysDate = getTodaysDate();
+  currentTraveler.listCurrentTrips(todaysDate).forEach(trip => {
     currentGrid.innerHTML +=
     `<article class='card'>
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
@@ -161,7 +171,8 @@ const generateCurrentGrid = () => {
 };
 
 const generateFutureGrid = () => {
-  currentTraveler.listFutureTrips().forEach(trip => {
+  const todaysDate = getTodaysDate();
+  currentTraveler.listFutureTrips(todaysDate).forEach(trip => {
     futureGrid.innerHTML +=
     `<article class='card'>
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
