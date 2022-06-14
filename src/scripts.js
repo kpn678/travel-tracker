@@ -191,27 +191,35 @@ const generatePendingGrid = () => {
 };
 
 const getEstimate = () => {
-  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
-  const costEstimateBeforeFee = (destinationMatch.estimatedLodgingCostPerDay * durationInput.value) + (destinationMatch.estimatedFlightCostPerPerson * travelersInput.value);
-  const costEstimateAfterFee = costEstimateBeforeFee + (costEstimateBeforeFee * 0.1);
-  messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
   event.preventDefault();
+  if (calendarInput.value && durationInput.value && travelersInput.value && destinationInput) {
+    const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+    const costEstimateBeforeFee = (destinationMatch.estimatedLodgingCostPerDay * durationInput.value) + (destinationMatch.estimatedFlightCostPerPerson * travelersInput.value);
+    const costEstimateAfterFee = costEstimateBeforeFee + (costEstimateBeforeFee * 0.1);
+    messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
+  } else {
+    messageBox.innerText = 'Please fill in all boxes.'
+  }
 };
 
 const createFormTripObj = () => {
   event.preventDefault();
-  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
-  let tripDataObj = {
-    id: trips.length + 1,
-    userID: currentTraveler.id,
-    destinationID: destinationMatch.id,
-    travelers: parseInt(travelersInput.value),
-    date: calendarInput.value.split('-').join('/'),
-    duration: parseInt(durationInput.value),
-    status: 'pending',
-    suggestedActivities: []
-  };
-  postTrip(tripDataObj);
+  if (calendarInput.value && durationInput.value && travelersInput.value && destinationInput) {
+    const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+    let tripDataObj = {
+      id: trips.length + 1,
+      userID: currentTraveler.id,
+      destinationID: destinationMatch.id,
+      travelers: parseInt(travelersInput.value),
+      date: calendarInput.value.split('-').join('/'),
+      duration: parseInt(durationInput.value),
+      status: 'pending',
+      suggestedActivities: []
+    };
+    postTrip(tripDataObj);
+  } else {
+    messageBox.innerText = 'Please fill in all boxes.'
+  }
 };
 
 const clearFormInput = () => {
