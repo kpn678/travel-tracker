@@ -4,8 +4,8 @@ import './images/passport.png';
 import { getAll, postTrip } from "./apiCalls.js";
 
 import Traveler from "./Traveler";
-import Trip from './Trip';
 import Destination from './Destination';
+import Trip from './Trip';
 
 //Global Variables
 let travelers, currentTraveler, currentTravelerID, destinations, trips;
@@ -42,6 +42,14 @@ const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
 
 //Functions
+const show = (element) => {
+  element.classList.remove('hidden');
+};
+
+const hide = (element) => {
+  element.classList.add('hidden');
+};
+
 const verifyTraveler = () => {
   event.preventDefault();
   let username = usernameInput.value.slice(0, 8);
@@ -182,19 +190,35 @@ const generatePendingGrid = () => {
   });
 };
 
+const getEstimate = () => {
+  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+  const costEstimateBeforeFee = (destinationMatch.estimatedLodgingCostPerDay * durationInput.value) + (destinationMatch.estimatedFlightCostPerPerson * travelersInput.value);
+  const costEstimateAfterFee = costEstimateBeforeFee + (costEstimateBeforeFee * 0.1);
+  messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
+  event.preventDefault();
+};
+
+const createFormTripObj = () => {
+  event.preventDefault();
+  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
+  let tripDataObj = {
+    id: trips.length + 1,
+    userID: currentTraveler.id,
+    destinationID: destinationMatch.id,
+    travelers: parseInt(travelersInput.value),
+    date: calendarInput.value.split('-').join('/'),
+    duration: parseInt(durationInput.value),
+    status: 'pending',
+    suggestedActivities: []
+  };
+  postTrip(tripDataObj);
+};
+
 const clearFormInput = () => {
   calendarInput.value = '';
   durationInput.value = '';
   travelersInput.value = '';
   destinationInput.value = '';
-};
-
-const show = (element) => {
-  element.classList.remove('hidden');
-};
-
-const hide = (element) => {
-  element.classList.add('hidden');
 };
 
 const displayHome = () => {
@@ -237,36 +261,12 @@ const displayPending = () => {
   show(pendingPage);
 };
 
-const getEstimate = () => {
-  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
-  const costEstimateBeforeFee = (destinationMatch.estimatedLodgingCostPerDay * durationInput.value) + (destinationMatch.estimatedFlightCostPerPerson * travelersInput.value);
-  const costEstimateAfterFee = costEstimateBeforeFee + (costEstimateBeforeFee * 0.1);
-  messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
-  event.preventDefault();
-};
-
-const createFormTripObj = () => {
-  event.preventDefault();
-  const destinationMatch = destinations.find(destination => destination.destination === destinationSelection.value);
-  let tripDataObj = {
-    id: trips.length + 1,
-    userID: currentTraveler.id,
-    destinationID: destinationMatch.id,
-    travelers: parseInt(travelersInput.value),
-    date: calendarInput.value.split('-').join('/'),
-    duration: parseInt(durationInput.value),
-    status: 'pending',
-    suggestedActivities: []
-  };
-  postTrip(tripDataObj);
-};
-
 //Event Listeners
 loginButton.addEventListener('click', verifyTraveler);
+costButton.addEventListener('click', getEstimate);
+submitButton.addEventListener('click', createFormTripObj);
 homeButton.addEventListener('click', displayHome);
 pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
-costButton.addEventListener('click', getEstimate);
-submitButton.addEventListener('click', createFormTripObj);
