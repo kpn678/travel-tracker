@@ -6,12 +6,13 @@ import { travelers } from '../src/data/travelers-data';
 import { trips } from '../src/data/trips-data';
 
 describe('Traveler', () => {
-  let traveler1, traveler2, traveler10;
+  let traveler1, traveler2, traveler10, todaysDate;
 
   beforeEach(() => {
     traveler1 = new Traveler(travelers[0]);
     traveler2 = new Traveler(travelers[1]);
     traveler10 = new Traveler(travelers[9]);
+    todaysDate = "2022/06/09";
   });
 
   it('should be a function', function() {
@@ -150,7 +151,7 @@ describe('Traveler', () => {
 
   it("should return a list of a traveler's pending trips", () => {
     traveler2.listAllTrips(trips);
-    expect(traveler2.listPendingTrips()).to.deep.equal(
+    expect(traveler2.listPendingTrips(todaysDate)).to.deep.equal(
       [
         {
           "id": 4,
@@ -168,12 +169,12 @@ describe('Traveler', () => {
 
   it("should return an empty array if a traveler has no pending trips", () => {
     traveler1.listAllTrips(trips);
-    expect(traveler1.listPendingTrips()).to.deep.equal([]);
+    expect(traveler1.listPendingTrips(todaysDate)).to.deep.equal([]);
   });
 
-  it.skip("should return a traveler's past trips", () => {
+  it("should return a traveler's past trips", () => {
     traveler1.listAllTrips(trips);
-    expect(traveler1.listPastTrips()).to.deep.equal(
+    expect(traveler1.listPastTrips(todaysDate)).to.deep.equal(
       [
         {
           "id": 3,
@@ -198,12 +199,12 @@ describe('Traveler', () => {
       ]
     );
     traveler2.listAllTrips(trips);
-    expect(traveler2.listPastTrips()).to.deep.equal([]);
+    expect(traveler2.listPastTrips(todaysDate)).to.deep.equal([]);
   });
 
-  it.skip("should return a traveler's current trips", () => {
+  it("should return a traveler's current trips", () => {
     traveler1.listAllTrips(trips);
-    expect(traveler1.listCurrentTrips()).to.deep.equal(
+    expect(traveler1.listCurrentTrips(todaysDate)).to.deep.equal(
       [
         {
           "id": 10,
@@ -218,12 +219,12 @@ describe('Traveler', () => {
       ]
     );
     traveler2.listAllTrips(trips);
-    expect(traveler2.listCurrentTrips()).to.deep.equal([]);
+    expect(traveler2.listCurrentTrips(todaysDate)).to.deep.equal([]);
   });
 
   it("should return a traveler's future trips", () => {
     traveler1.listAllTrips(trips);
-    expect(traveler1.listFutureTrips()).to.deep.equal(
+    expect(traveler1.listFutureTrips(todaysDate)).to.deep.equal(
       [
         {
           "id": 2,
@@ -238,7 +239,7 @@ describe('Traveler', () => {
       ]
     );
     traveler2.listAllTrips(trips);
-    expect(traveler2.listFutureTrips()).to.deep.equal(
+    expect(traveler2.listFutureTrips(todaysDate)).to.deep.equal(
       [
         {
           "id": 1,

@@ -43,23 +43,23 @@
           <form class="trip-request">
             <label for='calendarInput'>
               Select Start Date: <br><br>
-              <input class='calendar-input' id='calendarInput' name='calendarInput' type='date' min='' value='' required>
+              <input class='calendar-input' id='calendarInput' name='calendarInput' type='date' min='' value=''>
             </label>
             <label for='durationInput'>
               Enter Trip Duration: <br><br>
-              <input class='duration-input' id='durationInput' name='durationInput' type='number' placeholder='# of Days' required>
+              <input class='duration-input' id='durationInput' name='durationInput' type='number' min='1' oninput="validity.valid||(value='');" placeholder='# of Days'>
             </label>
             <label for='travelersInput'>
               Enter Number of Travelers: <br><br>
-              <input class='travelers-input' id='travelersInput' name='travelersInput' type='number' placeholder='# of Travelers' required>
+              <input class='travelers-input' id='travelersInput' name='travelersInput' type='number' min='1' oninput="validity.valid||(value='');" placeholder='# of Travelers'>
             </label>
             <label for='destinationInput'>
               Choose a Destination: <br>
             </label>
-            <select class='destination-input' id='destinationInput' name='destinationInput' required></select>
+            <select class='destination-input' id='destinationInput' name='destinationInput'></select>
             <br><br>
-            <button class='cost-estimate-button' id='costEstimateButton' type='submit'>GET COST ESTIMATE!</button><br>
-            <button class='submit-button' id='submitButton' type='submit'>LET'S GO ON AN ADVENTURE!</button>
+            <button class='cost-estimate-button' id='costEstimateButton' type='submit'>GET COST ESTIMATE</button><br>
+            <button class='submit-button' id='submitButton' type='submit'>SUBMIT TRIP REQUEST</button>
             <p class='message-box'></p>
           </form>
         </section>
