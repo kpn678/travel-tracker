@@ -21,14 +21,6 @@ class Traveler {
     };
   };
 
-  getTodaysDate() {
-    let today = new Date();
-    let yyyy = today.getFullYear();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    return `${yyyy}/${mm}/${dd}`;
-  };
-
   listAllTrips(tripsData) {
     tripsData.forEach(trip => {
       if (this.id === trip.userID) {
@@ -44,30 +36,27 @@ class Traveler {
     return this.pendingTrips;
   };
 
-  listPastTrips() {
-    const todaysDate = this.getTodaysDate();
+  listPastTrips(today) {
     this.allTrips.forEach(trip => {
-      if (trip.status === 'approved' && todaysDate > trip.date) {
+      if (trip.status === 'approved' && today > trip.date) {
         this.pastTrips.push(trip);
       };
     });
     return this.pastTrips;
   };
 
-  listCurrentTrips() {
-    const todaysDate = this.getTodaysDate();
+  listCurrentTrips(today) {
     this.allTrips.forEach(trip => {
-      if (trip.status === 'approved' && todaysDate === trip.date) {
+      if (trip.status === 'approved' && today === trip.date) {
         this.currentTrips.push(trip);
       };
     });
     return this.currentTrips;
   };
 
-  listFutureTrips() {
-    const todaysDate = this.getTodaysDate();
+  listFutureTrips(today) {
     this.allTrips.forEach(trip => {
-      if (trip.status === 'approved' && todaysDate < trip.date) {
+      if (trip.status === 'approved' && today < trip.date) {
         this.futureTrips.push(trip);
       };
     });
