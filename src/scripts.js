@@ -136,7 +136,7 @@ const generatePastGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -152,7 +152,7 @@ const generateCurrentGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -168,7 +168,7 @@ const generateFutureGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -184,7 +184,7 @@ const generatePendingGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -201,7 +201,7 @@ const getEstimate = () => {
     messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
   } else {
     messageBox.innerText = 'Please fill in all boxes.'
-  }
+  };
 };
 
 const createFormTripObj = () => {
@@ -221,7 +221,7 @@ const createFormTripObj = () => {
     postTrip(tripDataObj);
   } else {
     messageBox.innerText = 'Please fill in all boxes.'
-  }
+  };
 };
 
 export const updateData = () => {
