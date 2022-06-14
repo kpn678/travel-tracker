@@ -40,6 +40,7 @@ const futureGrid = document.querySelector('.future-grid');
 const pendingButton = document.querySelector('.pending-trips-button');
 const pendingPage = document.querySelector('.pending-page');
 const pendingGrid = document.querySelector('.pending-grid');
+const logoutButton = document.querySelector('.logout-button');
 
 //Functions
 const getTodaysDate = () => {
@@ -136,7 +137,7 @@ const generatePastGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -152,7 +153,7 @@ const generateCurrentGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -168,7 +169,7 @@ const generateFutureGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -184,7 +185,7 @@ const generatePendingGrid = () => {
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${trip.date}</b></p>
+        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
         <p>Duration: <b>${trip.duration} days</b></p>
         <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
@@ -201,7 +202,7 @@ const getEstimate = () => {
     messageBox.innerText = `Your estimated trip cost with a 10% travel agent fee is $${costEstimateAfterFee.toFixed(2)}.`;
   } else {
     messageBox.innerText = 'Please fill in all boxes.'
-  }
+  };
 };
 
 const createFormTripObj = () => {
@@ -221,7 +222,7 @@ const createFormTripObj = () => {
     postTrip(tripDataObj);
   } else {
     messageBox.innerText = 'Please fill in all boxes.'
-  }
+  };
 };
 
 export const updateData = () => {
@@ -282,6 +283,10 @@ const displayPending = () => {
   show(pendingPage);
 };
 
+const refreshPage = () => {
+  window.location.reload();
+};
+
 //Event Listeners
 loginButton.addEventListener('click', verifyTraveler);
 costButton.addEventListener('click', getEstimate);
@@ -291,3 +296,4 @@ pastButton.addEventListener('click', displayPast);
 presentButton.addEventListener('click', displayPresent);
 futureButton.addEventListener('click', displayFuture);
 pendingButton.addEventListener('click', displayPending);
+logoutButton.addEventListener('click', refreshPage);
