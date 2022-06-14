@@ -81,17 +81,6 @@ const renderData = (id) => {
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
-export const updateData = () => {
-  getAll()
-  .then(data => {
-    clearFormInput();
-    getTripsRepo(data[2]);
-    getTravelerTrips(data[2]);
-    generatePendingGrid();
-  })
-  .catch((error) => console.log(`There has been an error! ${error}`));
-};
-
 const createTraveler = (travelersData, id) => {
   travelers = travelersData.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = travelers[id - 1];
@@ -106,6 +95,7 @@ const getTripsRepo = (tripsData) => {
 };
 
 const getTravelerTrips = (tripsData) => {
+  currentTraveler.allTrips = [];
   currentTraveler.listAllTrips(tripsData.trips);
   currentTraveler.allTrips.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
@@ -187,6 +177,7 @@ const generateFutureGrid = () => {
 };
 
 const generatePendingGrid = () => {
+  pendingGrid.innerHTML = '';
   currentTraveler.listPendingTrips().forEach(trip => {
     pendingGrid.innerHTML +=
     `<article class='card'>
@@ -231,6 +222,17 @@ const createFormTripObj = () => {
   } else {
     messageBox.innerText = 'Please fill in all boxes.'
   }
+};
+
+export const updateData = () => {
+  getAll()
+  .then(data => {
+    clearFormInput();
+    getTripsRepo(data[2]);
+    getTravelerTrips(data[2]);
+    generatePendingGrid();
+  })
+  .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
 const clearFormInput = () => {
