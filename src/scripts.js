@@ -14,7 +14,7 @@ let travelers, currentTraveler, currentTravelerID, destinations, trips;
 const loginPage = document.querySelector('.login-page');
 const usernameInput = document.querySelector('.username');
 const passwordInput = document.querySelector('.password');
-const errorBox = document.querySelector('.error-box');
+export const errorBox = document.querySelector('.error-box');
 const loginButton = document.querySelector('.login-button');
 const navButtons = document.querySelector('.nav-buttons');
 const homeButton = document.querySelector('.home-button');
@@ -129,6 +129,8 @@ const generateDestinationChoices = () => {
   });
 };
 
+// Add message to show display
+
 const generatePastGrid = () => {
   const todaysDate = getTodaysDate();
   currentTraveler.listPastTrips(todaysDate).forEach(trip => {
@@ -145,20 +147,51 @@ const generatePastGrid = () => {
   });
 };
 
+// Method #1
+// const generateGrid = (trips) => {
+//   trips.forEach(trip => {
+//     pastGrid.innerHTML +=
+//     `<article class='card'>
+//       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+//       <section class = 'card-text'>
+//         <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+//         <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
+//         <p>Duration: <b>${trip.duration} days</b></p>
+//         <p># of Travelers: <b>${trip.travelers}</b></p>
+//       </section>
+//     </article>`;
+//   });
+// };
+//
+// generateGrid(currentTraveler.listPastTrips(getTodaysDate());
+
+// Method #2
 const generateCurrentGrid = () => {
   const todaysDate = getTodaysDate();
   currentTraveler.listCurrentTrips(todaysDate).forEach(trip => {
-    currentGrid.innerHTML +=
-    `<article class='card'>
-      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
-      <section class = 'card-text'>
-        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
-        <p>Duration: <b>${trip.duration} days</b></p>
-        <p># of Travelers: <b>${trip.travelers}</b></p>
-      </section>
-    </article>`;
+    currentGrid.innerHTML += createTripCard(trip);
+    // `<article class='card'>
+    //   <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+    //   <section class = 'card-text'>
+    //     <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+    //     <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
+    //     <p>Duration: <b>${trip.duration} days</b></p>
+    //     <p># of Travelers: <b>${trip.travelers}</b></p>
+    //   </section>
+    // </article>`;
   });
+};
+
+const createTripCard = (trip) => {
+  return `<article class='card'>
+    <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
+    <section class = 'card-text'>
+      <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+      <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
+      <p>Duration: <b>${trip.duration} days</b></p>
+      <p># of Travelers: <b>${trip.travelers}</b></p>
+    </section>
+  </article>`;
 };
 
 const generateFutureGrid = () => {
