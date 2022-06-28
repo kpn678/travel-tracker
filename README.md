@@ -46,5 +46,9 @@ The rubric and specs can be found [here](https://frontend.turing.edu/projects/tr
 - Implement the third-party library, Micromodal, so that modals can display messages more apparently for the user
 - Develop a travel agent user that can approve and deny traveler trips
 
+## Image Credits
+- Background: https://unsplash.com/photos/qyAka7W5uMY
+- Passport Icon: https://www.flaticon.com/free-icons/passport
+
 ## Contributor
 - [Kristy Nguyen](https://github.com/kpn678)
