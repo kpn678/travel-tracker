@@ -1,4 +1,4 @@
-import { updateData, messageBox } from "./scripts.js";
+import { errorBox, updateData, messageBox } from "./scripts.js";
 
 let apiTravelerData, apiTripData, apiDestinationData;
 
@@ -18,7 +18,10 @@ export const getAll = () => {
 const getData = (dataset) => {
   return fetch(`http://localhost:3001/api/v1/${dataset}`)
     .then(response => response.json())
-    .catch(error => console.log(dataset))
+    .catch(error => {
+      console.warn(error);
+      errorBox.innerText = "Sorry, something went wrong with the connection! Please try again.";
+    });
 };
 
 export const postTrip = (trip) => {
@@ -40,15 +43,15 @@ export const postTrip = (trip) => {
       if (!response.ok) {
         throw new Error("Please make sure all fields are filled out.");
       } else {
-        messageBox.innerText = "Your trip has been submitted! Please wait for decision from travel agent."
+        messageBox.innerText = "Your trip has been submitted! Please wait for decision from travel agent.";
         return response.json();
       };
     })
     .then(() => updateData())
     .catch(error => {
-      console.warn(error.message)
+      console.warn(error.message);
       if (error.message === "Failed to fetch") {
-        return messageBox.innerText = "OOPS something went wrong";
+        return messageBox.innerText = "OOPS, something went wrong with the connection! Please try again.";
       } else {
         return messageBox.innerText = error.message;
       };

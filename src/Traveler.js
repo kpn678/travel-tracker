@@ -8,7 +8,7 @@ class Traveler {
     this.allTrips = [];
     this.pendingTrips = [];
     this.pastTrips = [];
-    this.currentTrips = [];
+    this.presentTrips = [];
     this.futureTrips = [];
   };
 
@@ -44,13 +44,13 @@ class Traveler {
     return this.pastTrips;
   };
 
-  listCurrentTrips(today) {
+  listPresentTrips(today) {
     this.allTrips.forEach(trip => {
       if (trip.status === 'approved' && today === trip.date) {
-        this.currentTrips.push(trip);
+        this.presentTrips.push(trip);
       };
     });
-    return this.currentTrips;
+    return this.presentTrips;
   };
 
   listFutureTrips(today) {

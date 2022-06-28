@@ -14,7 +14,7 @@ let travelers, currentTraveler, currentTravelerID, destinations, trips;
 const loginPage = document.querySelector('.login-page');
 const usernameInput = document.querySelector('.username');
 const passwordInput = document.querySelector('.password');
-const errorBox = document.querySelector('.error-box');
+export const errorBox = document.querySelector('.error-box');
 const loginButton = document.querySelector('.login-button');
 const navButtons = document.querySelector('.nav-buttons');
 const homeButton = document.querySelector('.home-button');
@@ -109,10 +109,10 @@ const generatePage = () => {
   show(homePage);
   generateWelcomeMessage();
   generateDestinationChoices();
-  generatePastGrid();
-  generateCurrentGrid();
-  generateFutureGrid();
-  generatePendingGrid();
+  generateGrid((currentTraveler.listPastTrips(getTodaysDate())), pastGrid);
+  generateGrid((currentTraveler.listPresentTrips(getTodaysDate())), presentGrid);
+  generateGrid((currentTraveler.listFutureTrips(getTodaysDate())), futureGrid);
+  generateGrid((currentTraveler.listPendingTrips()), pendingGrid);
 };
 
 const generateWelcomeMessage = () => {
@@ -129,68 +129,24 @@ const generateDestinationChoices = () => {
   });
 };
 
-const generatePastGrid = () => {
-  const todaysDate = getTodaysDate();
-  currentTraveler.listPastTrips(todaysDate).forEach(trip => {
-    pastGrid.innerHTML +=
-    `<article class='card'>
+const generateGrid = (trips, grid) => {
+  grid.innerHTML =  '';
+  if (trips.length > 0) {
+    trips.forEach(trip => {
+      grid.innerHTML +=
+      `<article class='card'>
       <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
       <section class = 'card-text'>
-        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
-        <p>Duration: <b>${trip.duration} days</b></p>
-        <p># of Travelers: <b>${trip.travelers}</b></p>
+      <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
+      <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
+      <p>Duration: <b>${trip.duration} days</b></p>
+      <p># of Travelers: <b>${trip.travelers}</b></p>
       </section>
-    </article>`;
-  });
-};
-
-const generateCurrentGrid = () => {
-  const todaysDate = getTodaysDate();
-  currentTraveler.listCurrentTrips(todaysDate).forEach(trip => {
-    currentGrid.innerHTML +=
-    `<article class='card'>
-      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
-      <section class = 'card-text'>
-        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
-        <p>Duration: <b>${trip.duration} days</b></p>
-        <p># of Travelers: <b>${trip.travelers}</b></p>
-      </section>
-    </article>`;
-  });
-};
-
-const generateFutureGrid = () => {
-  const todaysDate = getTodaysDate();
-  currentTraveler.listFutureTrips(todaysDate).forEach(trip => {
-    futureGrid.innerHTML +=
-    `<article class='card'>
-      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
-      <section class = 'card-text'>
-        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
-        <p>Duration: <b>${trip.duration} days</b></p>
-        <p># of Travelers: <b>${trip.travelers}</b></p>
-      </section>
-    </article>`;
-  });
-};
-
-const generatePendingGrid = () => {
-  pendingGrid.innerHTML = '';
-  currentTraveler.listPendingTrips().forEach(trip => {
-    pendingGrid.innerHTML +=
-    `<article class='card'>
-      <img class="card-image" src=${trip.getDestination(destinations).image} alt=${trip.getDestination(destinations).alt}/>
-      <section class = 'card-text'>
-        <p>Location: <b>${trip.getDestination(destinations).destination}</b></p>
-        <p>Departure Date: <b>${dayjs(trip.date).format('ddd, MMM D, YYYY')}</b></p>
-        <p>Duration: <b>${trip.duration} days</b></p>
-        <p># of Travelers: <b>${trip.travelers}</b></p>
-      </section>
-    </article>`;
-  });
+      </article>`;
+    });
+  } else {
+    grid.innerHTML = `<h4>You have no trips in this category.</h4>`;
+  };
 };
 
 const getEstimate = () => {
@@ -231,7 +187,7 @@ export const updateData = () => {
     clearFormInput();
     getTripsRepo(data[2]);
     getTravelerTrips(data[2]);
-    generatePendingGrid();
+    generateGrid((currentTraveler.listPendingTrips()), pendingGrid);
   })
   .catch((error) => console.log(`There has been an error! ${error}`));
 };
