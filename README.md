@@ -25,13 +25,13 @@ The rubric and specs can be found [here](https://frontend.turing.edu/projects/tr
 
 ## Visual Walkthrough
 - User can access a login page with proper verification of username and password
-![Login Page](src/images/Login-GIF.gif)
+![Login Page](src/images/Login.gif)
 
 - User can view their past, current, future, and pending trips
-![Trips Grids](src/images/Trips-Grid-GIF.gif)
+![Trips Grids](src/images/Grids.gif)
 
 - User can submit a trip request and view it on their pending trips page
-![Submit Trip](src/images/Submit-Trip-GIF.gif)
+![Submit Trip](src/images/Submit-Trip.gif)
 
 ## Technologies Implemented
 - Javascript
