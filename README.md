@@ -17,11 +17,10 @@ The rubric and specs can be found [here](https://frontend.turing.edu/projects/tr
 3. Run `npm install` from your command line, which will install Webpack.
 4. Open another command line tab, and remain in the repository. Each time you use the application, run `npm start`, and copy the local host link, `http://localhost:8080/`, to your browser to view the application.
 5. For the username, it is *traveler##* with *##* being any number from 1-50. The password is *travel*.
-6. Fork this [API repository](https://github.com/turingschool-examples/travel-tracker-api.git), and clone it into your local machine into a separate repository.
-7. Navigate into the repository.
-8. Run `npm install` from your command line.
-9. Each time you use the application, you will need to run `npm start` so that the local server data is being referenced in the Travel Tracker app.
-10. To run the testing suite, ensure that `npm install` was run when the project was cloned. Then, run `npm test` in the command line tab where `npm start` is not being run.
+6. To run the testing suite, ensure that `npm install` was run when the project was cloned. Then, run `npm test` in the command line tab where `npm start` is not being run.
+
+## Deployed Link
+The website can be accessed [here](https://the-best-travel-tracker.vercel.app/).
 
 ## Visual Walkthrough
 - User can access a login page with proper verification of username and password
@@ -37,7 +36,6 @@ The rubric and specs can be found [here](https://frontend.turing.edu/projects/tr
 - Javascript
 - CSS
 - HTML
-- Webpack
 - Fetch API
 - Mocha/Chai
 - Day.js
