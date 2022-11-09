@@ -16,7 +16,7 @@ export const getAll = () => {
 };
 
 const getData = (dataset) => {
-  return fetch(`http://localhost:3001/api/v1/${dataset}`)
+  return fetch(`https://travel-tracker-api.up.railway.app/api/v1/${dataset}`)
     .then(response => response.json())
     .catch(error => {
       console.warn(error);
@@ -25,7 +25,7 @@ const getData = (dataset) => {
 };
 
 export const postTrip = (trip) => {
-  return fetch('http://localhost:3001/api/v1/trips', {
+  return fetch('https://travel-tracker-api.up.railway.app/api/v1/trips', {
     method: "POST",
     body: JSON.stringify({
         id: trip.id,
